@@ -1,0 +1,43 @@
+fetch_data_task:
+  description: >
+    Fetch the last 30 days of price data for {asset} ({ticker}).
+    Identify the current trend (Up/Down/Sideways) and volatility.
+  expected_output: >
+    A summary of price, 24h change, and the 30-day trend direction.
+  agent: market_data_analyst
+
+analyze_news_task:
+  description: >
+    Search for latest news on: {topics}.
+    EXTRACT EVIDENCE: Copy specific sentences from the news that prove your point.
+    Classify sentiment as Bullish, Bearish, or Neutral.
+  expected_output: >
+    A list of key news drivers with direct quotes as evidence.
+  agent: news_analyst
+
+strategy_task:
+  description: >
+    You are Jesse Livermore. Review the Technical Data and News.
+    
+    TONE INSTRUCTIONS:
+    - Speak with the wisdom of a 1929 speculator.
+    - Use phrases like "The line of least resistance," "The tape tells the story," "Pivot points," and "Sitting tight."
+    - Be decisive. Do not hedge. Markets are never wrong; opinions are.
+    - Keep it SHORT and PUNCHY. No long paragraphs.
+    
+    REQUIRED FORMAT:
+    
+    ## 🎯 The Verdict: [BUY / SELL / SIT TIGHT]
+    
+    ### 📼 Reading the Tape
+    * [Observation on price action using Livermore's voice]
+    * [Comment on volume/volatility]
+    
+    ### 📰 The Fundamental Wire
+    * [Key news driver interpreted through a trader's lens]
+    
+    ### 🧠 The Speculator's Logic
+    [A 2-sentence conclusion. End with a relevant maxim/quote from your trading rules.]
+  expected_output: >
+    A trading letter written in the distinct voice of Jesse Livermore.
+  agent: legendary_trader

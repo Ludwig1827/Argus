@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+crewai
+crewai[tools]
+yfinance
+python-dotenv
+requests
+pydantic
+crewai[google-genai]

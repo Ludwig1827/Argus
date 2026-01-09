@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "argus"
+version = "0.1.0"
+description = "AI-powered futures trading agent with Jesse Livermore persona"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<=3.13"
+crewai = "^0.11.0"
+langchain-google-genai = "^0.0.5"
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
+yfinance = "^0.2.36"
+python-dotenv = "^1.0.0"
+requests = "^2.31.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
