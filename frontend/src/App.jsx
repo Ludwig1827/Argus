@@ -3,6 +3,7 @@ import axios from 'axios'
 import ReactMarkdown from 'react-markdown'
 import { createChart } from 'lightweight-charts'
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 // --- 1. FULL LIST OF 20 FUTURES ---
 const FUTURES_LIST = [
     // Energy
@@ -113,11 +114,11 @@ function App() {
     setNews([])
     
     // Fetch data in parallel
-    axios.get(`http://localhost:8000/market-data/${ticker}`).then(res => setChartData(res.data)).catch(console.error);
-    axios.post("http://localhost:8000/news", { ticker, asset, topics }).then(res => setNews(res.data.articles)).catch(console.error);
+    axios.get(`${API_URL}/market-data/${ticker}`).then(res => setChartData(res.data)).catch(console.error);
+    axios.post(`${API_URL}/news`, { ticker, asset, topics }).then(res => setNews(res.data.articles)).catch(console.error);
 
     try {
-      const res = await axios.post("http://localhost:8000/analyze", { ticker, asset, topics })
+      const res = await axios.post(`${API_URL}/analyze`, { ticker, asset, topics })
       setReport(res.data.report)
     } catch (error) {
       setReport("**Error:** Failed to contact Argus Agent.")
