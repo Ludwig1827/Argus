@@ -31,7 +31,7 @@ class AnalyzeRequest(BaseModel):
 async def run_analysis(req: AnalyzeRequest):
     inputs = {"ticker": req.ticker, "asset": req.asset, "topics": req.topics}
     crew = ArgusCrew().crew()
-    crew_output = await crew.kickoff(inputs=inputs)
+    crew_output = await crew.kickoff_async(inputs=inputs)
     report_text = getattr(crew_output, "raw", "") or str(crew_output)
     return {"report": report_text}
 
