@@ -67,7 +67,7 @@ def batch_analyze_sentiment(articles, topic):
 
 def fetch_news_raw(query: str):
     url = "https://google.serper.dev/search"
-    payload = {"q": query, "num": 6, "tbs": "qdr:d"}  # qdr:d = last 24h
+    payload = {"q": query, "num": 10, "tbs": "qdr:d"}  # qdr:d = last 24h
     headers = {
         "X-API-KEY": os.getenv("SERPER_API_KEY", ""),
         "Content-Type": "application/json",

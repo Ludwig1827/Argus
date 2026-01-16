@@ -64,10 +64,12 @@ function App() {
       }
   };
 
-  // --- Chart Effect ---
+  // --- Chart Effect (Fixed) ---
   useEffect(() => {
     if (!chartContainerRef.current || chartData.length === 0) return;
-    if (chartRef.current) chartRef.current.remove();
+
+    // NOTE: Removed manual check here to avoid "Object is disposed" error.
+    // React cleanup function handles removal safely.
 
     const chart = createChart(chartContainerRef.current, {
         width: chartContainerRef.current.clientWidth,
@@ -84,19 +86,33 @@ function App() {
     
     candlestickSeries.setData(chartData);
     chart.timeScale().fitContent();
+    
+    // Store chart instance in ref
     chartRef.current = chart;
 
-    const handleResize = () => chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+    const handleResize = () => {
+        if (chartContainerRef.current) {
+            chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+        }
+    };
+
     window.addEventListener('resize', handleResize);
-    return () => { window.removeEventListener('resize', handleResize); chart.remove(); };
+
+    // Cleanup function
+    return () => { 
+        window.removeEventListener('resize', handleResize); 
+        chart.remove(); 
+        chartRef.current = null; // Clear ref
+    };
   }, [chartData]);
 
   // --- Run Analysis ---
   const handleRun = async () => {
     setLoading(true)
-    setReport("") // Reset report but we handle visibility below
+    setReport("") 
     setNews([])
     
+    // Fetch data in parallel
     axios.get(`http://localhost:8000/market-data/${ticker}`).then(res => setChartData(res.data)).catch(console.error);
     axios.post("http://localhost:8000/news", { ticker, asset, topics }).then(res => setNews(res.data.articles)).catch(console.error);
 

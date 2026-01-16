@@ -30,8 +30,9 @@ class AnalyzeRequest(BaseModel):
 @app.post("/analyze")
 def run_analysis(req: AnalyzeRequest):
     inputs = {"ticker": req.ticker, "asset": req.asset, "topics": req.topics}
-    result = ArgusCrew().crew().kickoff(inputs=inputs)
-    return {"report": result.raw}
+    crew_output = ArgusCrew().crew().kickoff(inputs=inputs)
+    report_text = getattr(crew_output, "raw", "") or str(crew_output)
+    return {"report": report_text}
 
 
 # --- NEW ENDPOINT FOR UI NEWS BLOCK ---

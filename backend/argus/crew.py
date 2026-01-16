@@ -41,6 +41,8 @@ class ArgusCrew:
             tools=[NewsScraperTool()],
             llm=self.llm(),
             verbose=True,
+            memory=False,
+            cache=False,
         )
 
     @agent
