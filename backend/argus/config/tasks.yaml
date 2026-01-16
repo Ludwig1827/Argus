@@ -1,4 +1,5 @@
 fetch_data_task:
+  async_execution: true
   description: >
     Fetch the last 30 days of price data for {asset} ({ticker}).
     Identify the current trend (Up/Down/Sideways) and volatility.
@@ -7,6 +8,7 @@ fetch_data_task:
   agent: market_data_analyst
 
 analyze_news_task:
+  async_execution: true
   description: >
     Search for latest news on: {topics}.
     EXTRACT EVIDENCE: Copy specific sentences from the news that prove your point.
